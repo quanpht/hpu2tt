@@ -1,0 +1,1184 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Báo cáo thực tập sư phạm</title>
+<meta name="theme-color" content="#4B3A9E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="https://cdn.tailwindcss.com/3.4.5"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          muc: { DEFAULT: '#4B3A9E', dam: '#352878', nhat: '#EEEBFA', vien: '#D6D0F0' },
+          giay: '#F6F7FB',
+          chu: '#1F2340',
+          phu: '#5D6280',
+          dung: '#1F8A5B',
+          muon: '#B26A00',
+          tre: '#C0392B',
+          xam: '#9AA0B8'
+        },
+        fontFamily: { sans: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'] }
+      }
+    }
+  };
+</script>
+<style>
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: #F6F7FB; color: #1F2340; }
+  /* Họa tiết ô ly của vở học trò */
+  .o-ly {
+    background-color: #4B3A9E;
+    background-image:
+      linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+  .o-ly-nhat {
+    background-image:
+      linear-gradient(rgba(75,58,158,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(75,58,158,.06) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+  .o-tuan { aspect-ratio: 1 / 1; }
+  .o-tuan[data-ma="dung_han"] { background: #1F8A5B; color: #fff; }
+  .o-tuan[data-ma="nop_muon"] { background: #B26A00; color: #fff; }
+  .o-tuan[data-ma="qua_han"] { background: #fff; color: #C0392B; border: 2px solid #C0392B; }
+  .o-tuan[data-ma="dang_mo"] { background: #fff; color: #4B3A9E; border: 2px dashed #4B3A9E; }
+  .o-tuan[data-ma="chua_mo"] { background: #ECEEF5; color: #9AA0B8; }
+  .o-tuan.dang-chon { outline: 3px solid #352878; outline-offset: 2px; }
+  input[type=text], input[type=password], input[type=number], input[type=date], input[type=url], textarea {
+    width: 100%; border: 1px solid #CDD1E1; border-radius: 10px; padding: .6rem .75rem; background: #fff;
+    font-size: 16px; line-height: 1.45; color: #1F2340;
+  }
+  textarea { min-height: 88px; resize: vertical; }
+  input:focus, textarea:focus { outline: 2px solid #4B3A9E; outline-offset: 1px; border-color: #4B3A9E; }
+  input:disabled, textarea:disabled { background: #F1F2F7; color: #5D6280; }
+  .lua-chon { display: flex; gap: .65rem; align-items: flex-start; padding: .55rem .7rem; border: 1px solid #DDE0EC; border-radius: 10px; background: #fff; cursor: pointer; }
+  .lua-chon:has(input:checked) { border-color: #4B3A9E; background: #EEEBFA; }
+  .lua-chon input { margin-top: .2rem; width: 1.05rem; height: 1.05rem; accent-color: #4B3A9E; flex-shrink: 0; }
+  fieldset:disabled .lua-chon { cursor: default; opacity: .85; }
+  .cau { scroll-margin-top: 130px; }
+  .cau.co-loi > .nhan-cau { color: #C0392B; }
+  .cau.co-loi input, .cau.co-loi textarea { border-color: #C0392B; }
+  .loi { color: #C0392B; font-size: .875rem; margin-top: .35rem; }
+  .nut { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: 10px; padding: .7rem 1.1rem; font-weight: 600; transition: background .15s; }
+  .nut-chinh { background: #4B3A9E; color: #fff; }
+  .nut-chinh:hover { background: #352878; }
+  .nut-phu { background: #fff; color: #4B3A9E; border: 1px solid #D6D0F0; }
+  .nut-phu:hover { background: #EEEBFA; }
+  .nut:disabled { opacity: .55; cursor: not-allowed; }
+  .nut:focus-visible, a:focus-visible, button:focus-visible, .o-tuan:focus-visible { outline: 3px solid #F2B705; outline-offset: 2px; }
+  .the { background: #fff; border: 1px solid #E3E5EF; border-radius: 14px; }
+  #thanh-tai { height: 3px; background: #F2B705; transform-origin: left; transform: scaleX(0); opacity: 0; transition: transform .3s, opacity .3s; }
+  #thanh-tai.dang { transform: scaleX(.75); transition: transform 8s cubic-bezier(.1,.6,.2,1); }
+  .khoi { overflow: hidden; }
+  .dau-khoi { display: flex; align-items: center; gap: .65rem; padding: .85rem 1.25rem; font-weight: 700; font-size: 1.0625rem; }
+  .dau-khoi i { width: 1.25rem; text-align: center; }
+  .khoi[data-mau="cn"] .dau-khoi { background: #4B3A9E; color: #fff; }
+  .khoi[data-mau="cn"] { background: #FBFAFF; border-color: #D6D0F0; }
+  .khoi[data-mau="dh"] .dau-khoi { background: #1F5FA0; color: #fff; }
+  .khoi[data-mau="dh"] { background: #F8FBFE; border-color: #CFE0F2; }
+  .khoi[data-mau="td"] .dau-khoi { background: #FFF1D6; color: #6E4300; }
+  .khoi[data-mau="kh"] .dau-khoi { background: #E3F3EA; color: #155E3D; }
+  .khoi[data-mau="chung"] .dau-khoi { background: #EEEBFA; color: #352878; }
+  .buoc[aria-current="step"] { background: #4B3A9E; color: #fff; border-color: #4B3A9E; }
+  .buoc.co-loi { border-color: #C0392B; color: #C0392B; }
+  .buoc.co-loi[aria-current="step"] { background: #C0392B; color: #fff; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  .pb-safe { padding-bottom: calc(env(safe-area-inset-bottom) + 76px); }
+  @media (min-width: 768px) { .pb-safe { padding-bottom: 40px; } }
+</style>
+</head>
+<body class="font-sans antialiased">
+<div id="thanh-tai" class="fixed top-0 left-0 right-0 z-50"></div>
+<div id="app"></div>
+<div id="thong-bao" class="fixed z-50 left-1/2 -translate-x-1/2 bottom-24 md:bottom-8 w-[calc(100%-32px)] max-w-md space-y-2" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+ * CẤU HÌNH: đổi địa chỉ Web App khi triển khai đợt mới
+ * ===================================================================== */
+const API_URL = 'https://script.google.com/macros/s/AKfycbzlu98jqUIvPSgivwovk6N996OtXQTJrQum17s6BuaIbnGL0RqSA-XdO-ek41NYRYCS5w/exec';
+const TZ = 'Asia/Ho_Chi_Minh';
+
+/* ===================== Trạng thái chung ===================== */
+const S = {
+  token: null, hoTen: '', mssv: '', ghiNho: false,
+  me: null, lechGio: 0,
+  final: null, finalData: null, finalStep: 'A', finalErrors: {}, finalSavedAt: null
+};
+
+const kho = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* bỏ qua */ } },
+  del(k) { try { localStorage.removeItem(k); } catch (e) { /* bỏ qua */ } }
+};
+const phien = {
+  get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) { /* bỏ qua */ } },
+  del(k) { try { sessionStorage.removeItem(k); } catch (e) { /* bỏ qua */ } }
+};
+/** Ghi nhớ: lưu phiên vào localStorage (giữ đăng nhập trên thiết bị); không ghi nhớ: chỉ giữ đến khi đóng trình duyệt. */
+function luuPhien() {
+  const v = JSON.stringify({ token: S.token, hoTen: S.hoTen, mssv: S.mssv });
+  if (S.ghiNho) { kho.set('ttsp_sv', v); kho.set('ttsp_mssv', S.mssv); phien.del('ttsp_sv'); }
+  else { phien.set('ttsp_sv', v); kho.del('ttsp_sv'); kho.del('ttsp_mssv'); }
+}
+
+/* ===================== Tiện ích ===================== */
+const $ = (sel, root) => (root || document).querySelector(sel);
+const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+const esc = s => String(s === undefined || s === null ? '' : s)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+const escBr = s => esc(s).replace(/\n/g, '<br>');
+
+function fmt(ms, kieu) {
+  if (!ms) return '';
+  const p = new Intl.DateTimeFormat('en-GB', { timeZone: TZ, day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date(ms));
+  const g = t => (p.find(x => x.type === t) || {}).value;
+  const ngay = g('day') + '/' + g('month') + '/' + g('year');
+  return kieu === 'ngay' ? ngay : ngay + ' ' + g('hour') + ':' + g('minute');
+}
+
+function bayGio() { return Date.now() + S.lechGio; }
+
+function conLai(ms) {
+  let s = Math.max(0, Math.floor((ms - bayGio()) / 1000));
+  const ngay = Math.floor(s / 86400); s -= ngay * 86400;
+  const gio = Math.floor(s / 3600); s -= gio * 3600;
+  const phut = Math.floor(s / 60);
+  if (ngay > 0) return ngay + ' ngày ' + gio + ' giờ';
+  if (gio > 0) return gio + ' giờ ' + phut + ' phút';
+  return phut + ' phút';
+}
+
+let soTai = 0;
+function taiBat(on) {
+  const t = $('#thanh-tai');
+  soTai = Math.max(0, soTai + (on ? 1 : -1));
+  if (on && soTai === 1) { t.style.opacity = '1'; t.style.transform = ''; t.classList.remove('dang'); void t.offsetWidth; t.classList.add('dang'); }
+  if (!on && soTai === 0) {
+    t.classList.remove('dang'); t.style.transform = 'scaleX(1)';
+    setTimeout(() => { if (soTai === 0) { t.style.opacity = '0'; setTimeout(() => { if (soTai === 0) t.style.transform = 'scaleX(0)'; }, 300); } }, 200);
+  }
+}
+
+function bao(noiDung, loai) {
+  const mau = loai === 'loi' ? 'bg-tre' : loai === 'tot' ? 'bg-dung' : 'bg-chu';
+  const icon = loai === 'loi' ? 'fa-circle-exclamation' : loai === 'tot' ? 'fa-circle-check' : 'fa-circle-info';
+  const el = document.createElement('div');
+  el.className = mau + ' text-white rounded-xl px-4 py-3 shadow-lg flex gap-3 items-start text-[15px]';
+  el.innerHTML = '<i class="fa-solid ' + icon + ' mt-1"></i><div>' + esc(noiDung) + '</div>';
+  $('#thong-bao').appendChild(el);
+  setTimeout(() => el.remove(), loai === 'loi' ? 7000 : 4000);
+}
+
+async function api(action, data) {
+  taiBat(true);
+  try {
+    let res;
+    try {
+      res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: action, token: S.token, data: data || {} }) });
+    } catch (e) {
+      const err = new Error('Không kết nối được máy chủ. Kiểm tra mạng rồi thử lại.');
+      err.code = 'NETWORK';
+      throw err;
+    }
+    const j = await res.json();
+    if (!j.ok) {
+      const err = new Error(j.error.message);
+      err.code = j.error.code;
+      err.fields = j.error.fields;
+      if (err.code === 'AUTH_REQUIRED') { dangXuat(); bao(err.message, 'loi'); }
+      throw err;
+    }
+    return j.data;
+  } finally {
+    taiBat(false);
+  }
+}
+
+function taiFile(kq) {
+  const bin = atob(kq.base64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  const url = URL.createObjectURL(new Blob([bytes], { type: kq.mimeType }));
+  const a = document.createElement('a');
+  a.href = url; a.download = kq.tenFile;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+}
+
+async function taiPdf(loai, tuan, nut) {
+  if (nut) { nut.disabled = true; nut.dataset.goc = nut.innerHTML; nut.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang tạo PDF…'; }
+  try {
+    const kq = await api('getPdf', { loai: loai, tuan: tuan });
+    taiFile(kq);
+    bao('Đã tải ' + kq.tenFile, 'tot');
+  } catch (e) { bao(e.message, 'loi'); }
+  finally { if (nut) { nut.disabled = false; nut.innerHTML = nut.dataset.goc; } }
+}
+
+function bocNut(nut, chu) {
+  nut.disabled = true;
+  nut.dataset.goc = nut.innerHTML;
+  nut.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ' + chu;
+  return () => { nut.disabled = false; nut.innerHTML = nut.dataset.goc; };
+}
+
+/* ===================== Đăng nhập / đăng xuất ===================== */
+function dangXuat() {
+  S.token = null; S.me = null; S.final = null; S.finalData = null;
+  kho.del('ttsp_sv');
+  phien.del('ttsp_sv');
+  location.hash = '';
+  veDangNhap();
+}
+
+function veDangNhap() {
+  $('#app').innerHTML = `
+  <main class="min-h-screen grid md:grid-cols-2">
+    <section class="o-ly text-white px-6 pt-14 pb-10 md:p-14 flex flex-col justify-end">
+      <div class="max-w-md">
+        <div class="grid grid-cols-6 gap-1.5 w-40 mb-8" aria-hidden="true">
+          ${['dung_han','dung_han','nop_muon','dung_han','dang_mo','chua_mo'].map(m => `<span class="o-tuan rounded-md" data-ma="${m}" style="${m==='dang_mo'?'border-color:#fff;background:transparent':''}${m==='chua_mo'?';background:rgba(255,255,255,.18)':''}"></span>`).join('')}
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold leading-tight">Báo cáo thực tập sư phạm</h1>
+        <p class="mt-3 text-white/80 text-[15px] leading-relaxed">Nộp báo cáo tuần, báo cáo tổng kết và theo dõi tiến độ thực tập của sinh viên Khoa Toán - Trường ĐHSP Hà Nội 2.</p>
+      </div>
+    </section>
+    <section class="px-6 py-10 md:p-14 flex items-center">
+      <form id="f-dn" class="w-full max-w-sm mx-auto space-y-5" novalidate>
+        <h2 class="text-xl font-semibold">Đăng nhập</h2>
+        <div>
+          <label for="dn-mssv" class="block text-sm font-medium mb-1.5">Mã sinh viên</label>
+          <input id="dn-mssv" type="text" inputmode="numeric" autocomplete="username" required>
+        </div>
+        <div>
+          <label for="dn-mk" class="block text-sm font-medium mb-1.5">Mật khẩu</label>
+          <div class="relative">
+            <input id="dn-mk" type="password" autocomplete="current-password" required class="pr-12">
+            <button type="button" id="dn-hien" class="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 text-phu" aria-label="Hiện mật khẩu"><i class="fa-regular fa-eye"></i></button>
+          </div>
+        </div>
+        <label class="flex items-center gap-2.5 text-[15px] cursor-pointer select-none">
+          <input id="dn-nho" type="checkbox" class="w-5 h-5 accent-[#4B3A9E]">
+          Ghi nhớ đăng nhập trên thiết bị này
+        </label>
+        <p id="dn-loi" class="loi hidden" role="alert"></p>
+        <button class="nut nut-chinh w-full" type="submit">Đăng nhập</button>
+        <p class="text-sm text-phu leading-relaxed">Lần đầu đăng nhập, dùng mật khẩu giảng viên đã thông báo.</p>
+      </form>
+    </section>
+  </main>`;
+  $('#dn-hien').onclick = () => {
+    const i = $('#dn-mk');
+    i.type = i.type === 'password' ? 'text' : 'password';
+    $('#dn-hien').innerHTML = i.type === 'password' ? '<i class="fa-regular fa-eye"></i>' : '<i class="fa-regular fa-eye-slash"></i>';
+  };
+  $('#f-dn').onsubmit = async ev => {
+    ev.preventDefault();
+    const loi = $('#dn-loi');
+    loi.classList.add('hidden');
+    const mssv = $('#dn-mssv').value.trim();
+    const mk = $('#dn-mk').value;
+    if (!mssv || !mk) { loi.textContent = 'Nhập mã sinh viên và mật khẩu.'; loi.classList.remove('hidden'); return; }
+    const xong = bocNut(ev.submitter || $('#f-dn button[type=submit]'), 'Đang đăng nhập…');
+    try {
+      const kq = await api('login', { mssv: mssv, matKhau: mk });
+      S.token = kq.token; S.hoTen = kq.hoTen; S.mssv = kq.mssv;
+      S.ghiNho = $('#dn-nho').checked;
+      luuPhien();
+      location.hash = '#tien-do';
+      await khoiDong();
+    } catch (e) {
+      loi.textContent = e.message; loi.classList.remove('hidden');
+    } finally { xong(); }
+  };
+  const mssvNho = kho.get('ttsp_mssv');
+  if (mssvNho) { $('#dn-mssv').value = mssvNho; $('#dn-nho').checked = true; }
+  setTimeout(() => { const o = mssvNho ? $('#dn-mk') : $('#dn-mssv'); if (o) o.focus(); }, 50);
+}
+
+/* ===================== Khung ứng dụng ===================== */
+const MUC = [
+  { id: 'tien-do', ten: 'Tiến độ', icon: 'fa-chart-simple' },
+  { id: 'tuan', ten: 'Báo cáo tuần', icon: 'fa-calendar-week' },
+  { id: 'tong-ket', ten: 'Tổng kết', icon: 'fa-flag-checkered' },
+  { id: 'tai-khoan', ten: 'Tài khoản', icon: 'fa-user' }
+];
+
+function veKhung() {
+  $('#app').innerHTML = `
+  <header class="o-ly text-white sticky top-0 z-30">
+    <div class="max-w-3xl mx-auto px-4 h-14 flex items-center gap-3">
+      <div class="font-semibold truncate flex-1">${esc(S.hoTen)} <span class="text-white/70 font-normal">· ${esc(S.mssv)}</span></div>
+      <nav class="hidden md:flex gap-1" aria-label="Điều hướng chính">
+        ${MUC.map(m => `<a href="#${m.id}" data-muc="${m.id}" class="px-3 py-2 rounded-lg text-sm text-white/85 hover:bg-white/10">${m.ten}</a>`).join('')}
+      </nav>
+    </div>
+  </header>
+  <main id="noi-dung" class="max-w-3xl mx-auto px-4 pt-5 pb-safe"></main>
+  <nav class="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t border-[#E3E5EF] grid grid-cols-4" style="padding-bottom: env(safe-area-inset-bottom)" aria-label="Điều hướng chính">
+    ${MUC.map(m => `<a href="#${m.id}" data-muc="${m.id}" class="flex flex-col items-center gap-1 py-2.5 text-[11.5px] text-phu"><i class="fa-solid ${m.icon} text-base"></i>${m.ten}</a>`).join('')}
+  </nav>`;
+}
+
+function danhDauMuc(id) {
+  $$('[data-muc]').forEach(a => {
+    const on = a.dataset.muc === id;
+    a.setAttribute('aria-current', on ? 'page' : 'false');
+    if (a.closest('header')) a.classList.toggle('bg-white/15', on);
+    else { a.classList.toggle('text-muc', on); a.classList.toggle('font-semibold', on); a.classList.toggle('text-phu', !on); }
+  });
+}
+
+async function dieuHuong() {
+  if (!S.token) return veDangNhap();
+  if (!$('#noi-dung')) veKhung();
+  const h = (location.hash || '#tien-do').slice(1).split('/');
+  const muc = h[0] || 'tien-do';
+  danhDauMuc(muc);
+  window.scrollTo(0, 0);
+  try {
+    if (muc === 'tuan') await veTuan(h[1] ? parseInt(h[1], 10) : null);
+    else if (muc === 'tong-ket') await veTongKet();
+    else if (muc === 'tai-khoan') veTaiKhoan();
+    else await veTienDo();
+  } catch (e) {
+    if (e.code !== 'AUTH_REQUIRED') $('#noi-dung').innerHTML = khungLoi(e.message);
+  }
+}
+
+function khungLoi(msg) {
+  return `<div class="the p-6 text-center"><i class="fa-solid fa-triangle-exclamation text-tre text-2xl"></i>
+    <p class="mt-3">${esc(msg)}</p><button class="nut nut-phu mt-4" onclick="dieuHuong()">Thử lại</button></div>`;
+}
+
+async function napMe() {
+  const me = await api('getMe');
+  S.me = me;
+  S.lechGio = me.gioMayChu - Date.now();
+  return me;
+}
+
+/* ===================== Tiến độ ===================== */
+const NHAN_MA = { dung_han: 'Đúng hạn', nop_muon: 'Nộp muộn', qua_han: 'Chưa nộp', dang_mo: 'Đang mở', chua_mo: 'Chưa mở' };
+
+async function veTienDo() {
+  const nd = $('#noi-dung');
+  if (!S.me) nd.innerHTML = '<p class="text-phu py-10 text-center">Đang tải tiến độ…</p>';
+  const me = await napMe();
+  const cur = me.tuans.find(t => t.tuan === me.tuanHienTai);
+  const tk = me.tongKet;
+
+  let theTuan = '';
+  if (cur) {
+    if (cur.daNop) {
+      theTuan = `<p class="text-phu text-sm">Tuần ${cur.tuan}, từ ${esc(cur.tuNgay)} đến ${esc(cur.denNgay)}</p>
+        <p class="text-lg font-semibold mt-1"><i class="fa-solid fa-circle-check text-dung"></i> Em đã nộp báo cáo tuần ${cur.tuan}</p>
+        ${cur.coTheSua ? `<p class="text-sm text-phu mt-1">Còn sửa được đến ${fmt(cur.hanNop)}.</p>` : ''}
+        <a href="#tuan/${cur.tuan}" class="nut nut-phu mt-4">${cur.coTheSua ? 'Xem và sửa' : 'Xem lại'}</a>`;
+    } else if (cur.ma === 'dang_mo') {
+      theTuan = `<p class="text-phu text-sm">Tuần ${cur.tuan}, từ ${esc(cur.tuNgay)} đến ${esc(cur.denNgay)}</p>
+        <p class="text-lg font-semibold mt-1">Hạn nộp ${fmt(cur.hanNop)}</p>
+        <p class="text-sm text-muc mt-0.5">còn ${conLai(cur.hanNop)}</p>
+        <a href="#tuan/${cur.tuan}" class="nut nut-chinh mt-4">Nộp báo cáo tuần ${cur.tuan}</a>`;
+    } else {
+      theTuan = `<p class="text-phu text-sm">Tuần ${cur.tuan}, từ ${esc(cur.tuNgay)} đến ${esc(cur.denNgay)}</p>
+        <p class="text-lg font-semibold mt-1 text-tre">Đã quá hạn, em chưa nộp</p>
+        ${cur.coTheNop ? `<a href="#tuan/${cur.tuan}" class="nut nut-chinh mt-4">Nộp muộn tuần ${cur.tuan}</a>` : ''}`;
+    }
+  } else {
+    const dau = me.tuans[0];
+    theTuan = dau ? `<p class="text-lg font-semibold">Chưa đến tuần thực tập đầu tiên</p><p class="text-sm text-phu mt-1">Tuần 1 mở nộp lúc ${fmt(dau.moNop)}.</p>`
+      : `<p class="text-lg font-semibold">Giảng viên chưa nhập lịch tuần</p>`;
+  }
+
+  const so = me.congDon;
+  // Bỏ các nhắc việc đã hiện ở thẻ tuần hiện tại và thẻ tổng kết
+  const nhac = me.nhacViec.filter(n => n.muc === 'canh-bao' || n.noiDung.indexOf('Khi có điểm') === 0);
+  const oSo = (n, nhan) => `<div class="the p-4"><div class="text-3xl font-bold tabular-nums">${n}</div><div class="text-sm text-phu mt-1 leading-snug">${nhan}</div></div>`;
+
+  let theTK;
+  if (!tk.daMo) theTK = `<p class="text-phu">Báo cáo tổng kết mở từ ${tk.moLuc ? fmt(tk.moLuc) : 'thời gian giảng viên thông báo'}.</p>`;
+  else if (tk.trangThai === 'Đã nộp') theTK = `<p class="font-semibold"><i class="fa-solid fa-circle-check text-dung"></i> Đã nộp báo cáo tổng kết</p>
+      <dl class="grid grid-cols-2 gap-y-1 mt-3 text-sm"><dt class="text-phu">Hồ sơ</dt><dd>${esc(tk.hoSo)}</dd><dt class="text-phu">Tiết dạy đánh giá</dt><dd>${esc(tk.tietDay)}</dd><dt class="text-phu">Link Drive</dt><dd>${esc(tk.linkDrive || '–')}</dd></dl>
+      <a href="#tong-ket" class="nut nut-phu mt-4">Xem báo cáo tổng kết</a>`;
+  else theTK = `<p class="font-semibold">${tk.trangThai === 'Nháp' ? 'Em đang có bản nháp' : 'Đã mở, em chưa bắt đầu'}</p>
+      ${tk.hanLuc ? `<p class="text-sm text-phu mt-1">Hạn nộp ${fmt(tk.hanLuc)}, còn ${conLai(tk.hanLuc)}.</p>` : ''}
+      <a href="#tong-ket" class="nut nut-chinh mt-4">${tk.trangThai === 'Nháp' ? 'Làm tiếp' : 'Bắt đầu làm'}</a>`;
+
+  $('#noi-dung').innerHTML = `
+    <section class="the o-ly-nhat p-5">${theTuan}</section>
+
+    <section class="mt-6">
+      <div class="flex items-baseline justify-between">
+        <h2 class="font-semibold">Các tuần thực tập</h2>
+        <span class="text-sm text-phu">${me.tuans.filter(t => t.daNop).length}/${me.tuans.length} đã nộp</span>
+      </div>
+      <div class="grid gap-2 mt-3 max-w-[560px]" style="grid-template-columns: repeat(${Math.min(Math.max(me.tuans.length, 5), 8)}, minmax(0, 1fr))">
+        ${me.tuans.map(t => `<a href="#tuan/${t.tuan}" class="o-tuan rounded-lg flex flex-col items-center justify-center font-bold text-lg" data-ma="${t.ma}" title="Tuần ${t.tuan}: ${NHAN_MA[t.ma]}" aria-label="Tuần ${t.tuan}: ${NHAN_MA[t.ma]}">${t.tuan}</a>`).join('')}
+      </div>
+      <ul class="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-[13px] text-phu">
+        ${['dung_han', 'nop_muon', 'qua_han', 'dang_mo', 'chua_mo'].map(m => `<li class="flex items-center gap-1.5"><span class="o-tuan w-3 rounded-sm inline-block" data-ma="${m}" style="border-width:1.5px"></span>${NHAN_MA[m]}</li>`).join('')}
+      </ul>
+    </section>
+
+    ${nhac.length ? `<section class="mt-6 space-y-2">${nhac.map(n => `
+      <div class="flex gap-3 items-start rounded-xl px-4 py-3 text-[15px] ${n.muc === 'canh-bao' ? 'bg-[#FDECEA] text-[#8E2A1F]' : 'bg-muc-nhat text-muc-dam'}">
+        <i class="fa-solid ${n.muc === 'canh-bao' ? 'fa-circle-exclamation' : 'fa-bell'} mt-1"></i><span>${esc(n.noiDung)}</span></div>`).join('')}</section>` : ''}
+
+    <section class="mt-6">
+      <h2 class="font-semibold">Số tiết em đã thực hiện qua các tuần</h2>
+      <div class="grid grid-cols-2 gap-3 mt-3">
+        ${oSo(so.CN_Du, 'Chủ nhiệm: dự giờ/quan sát')}
+        ${oSo(so.CN_ToChuc, 'Chủ nhiệm: trực tiếp tổ chức')}
+        ${oSo(so.DH_Du, 'Dạy học: dự giờ')}
+        ${oSo(so.DH_Day, 'Dạy học: trực tiếp dạy')}
+      </div>
+    </section>
+
+    <section class="mt-6 the p-5">
+      <h2 class="font-semibold mb-2">Báo cáo tổng kết</h2>
+      ${theTK}
+    </section>
+
+    
+  `;
+}
+
+/* ===================== Ô nhập dùng chung ===================== */
+function nhom(nhomPA) { return (S.me && S.me.phuongAn[nhomPA]) || []; }
+
+function oCau(ten, nhan, noiDung, goiY) {
+  return `<div class="cau" data-cau="${ten}">
+    <div class="nhan-cau font-medium mb-2 leading-snug">${nhan}</div>
+    ${goiY ? `<p class="text-sm text-phu -mt-1 mb-2">${goiY}</p>` : ''}
+    ${noiDung}
+    <p class="loi hidden" data-loi="${ten}"></p>
+  </div>`;
+}
+
+function oSo(ten, gt, them) {
+  return `<input type="number" inputmode="numeric" min="0" step="1" name="${ten}" value="${gt === '' || gt === undefined || gt === null ? '' : esc(gt)}" class="max-w-[9rem]" ${them || ''}>`;
+}
+
+function oChu(ten, gt, them) {
+  return `<input type="text" name="${ten}" value="${esc(gt)}" ${them || ''}>`;
+}
+
+function oVan(ten, gt, them) {
+  return `<textarea name="${ten}" ${them || ''}>${esc(gt)}</textarea>`;
+}
+
+function oTick(ten, ds, chon, loaiTru) {
+  return `<div class="grid sm:grid-cols-2 gap-2">${ds.map(o => `
+    <label class="lua-chon"><input type="checkbox" name="${ten}" value="${esc(o.ma)}" ${chon && chon[o.ma] ? 'checked' : ''} ${o.ma === loaiTru ? 'data-loai-tru="1"' : ''}><span>${esc(o.nhan)}</span></label>`).join('')}</div>`;
+}
+
+function oChon(ten, ds, gt) {
+  return `<div class="grid gap-2">${ds.map(o => `
+    <label class="lua-chon"><input type="radio" name="${ten}" value="${esc(o.nhan)}" ${gt === o.nhan ? 'checked' : ''}><span>${esc(o.nhan)}</span></label>`).join('')}</div>`;
+}
+
+function ganLoaiTru(root) {
+  $$('input[type=checkbox][data-loai-tru]', root).forEach(x => {
+    const ten = x.name;
+    $$('input[type=checkbox][name="' + ten + '"]', root).forEach(cb => cb.addEventListener('change', () => {
+      if (!cb.checked) return;
+      if (cb.dataset.loaiTru) $$('input[name="' + ten + '"]', root).forEach(o => { if (o !== cb) o.checked = false; });
+      else x.checked = false;
+    }));
+  });
+}
+
+function xoaLoi(root) {
+  $$('.cau.co-loi', root).forEach(c => c.classList.remove('co-loi'));
+  $$('[data-loi]', root).forEach(p => { p.classList.add('hidden'); p.textContent = ''; });
+}
+
+function hienLoi(root, fields) {
+  let dau = null;
+  (fields || []).forEach(f => {
+    const cau = $('[data-cau="' + f.field + '"]', root);
+    const p = $('[data-loi="' + f.field + '"]', root);
+    if (cau) { cau.classList.add('co-loi'); dau = dau || cau; }
+    if (p) { p.textContent = p.textContent ? p.textContent + ' ' + f.message : f.message; p.classList.remove('hidden'); }
+  });
+  if (dau) dau.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  return dau;
+}
+
+const gtTick = (root, ten) => { const o = {}; $$('input[name="' + ten + '"]', root).forEach(x => { o[x.value] = x.checked; }); return o; };
+const gtChon = (root, ten) => { const x = $('input[name="' + ten + '"]:checked', root); return x ? x.value : ''; };
+const gt = (root, ten) => { const x = $('[name="' + ten + '"]', root); return x ? x.value : ''; };
+
+/* ===================== Báo cáo tuần ===================== */
+async function veTuan(soTuan) {
+  if (!S.me) await napMe();
+  const me = S.me;
+  if (!me.tuans.length) { $('#noi-dung').innerHTML = '<div class="the p-6">Giảng viên chưa nhập lịch tuần.</div>'; return; }
+  if (!soTuan) {
+    const uuTien = me.tuans.find(t => t.ma === 'dang_mo') || me.tuans.find(t => t.ma === 'qua_han' && t.coTheNop) || me.tuans.find(t => t.tuan === me.tuanHienTai) || me.tuans[0];
+    location.replace('#tuan/' + uuTien.tuan);
+    return;
+  }
+  const dsTuan = `<div class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1" role="tablist" aria-label="Chọn tuần">
+    ${me.tuans.map(t => `<a href="#tuan/${t.tuan}" role="tab" aria-selected="${t.tuan === soTuan}" class="o-tuan w-12 shrink-0 rounded-lg flex items-center justify-center font-bold ${t.tuan === soTuan ? 'dang-chon' : ''}" data-ma="${t.ma}" title="Tuần ${t.tuan}: ${NHAN_MA[t.ma]}">${t.tuan}</a>`).join('')}
+  </div>`;
+  $('#noi-dung').innerHTML = dsTuan + '<div id="vung-tuan" class="mt-5"><p class="text-phu">Đang tải tuần ' + soTuan + '…</p></div>';
+  const kq = await api('getWeekly', { tuan: soTuan });
+  veFormTuan(kq);
+}
+
+function veFormTuan(kq) {
+  const t = kq.trangThai;
+  const bc = kq.baoCao;
+  const v = bc || { cn: {}, cm: {} };
+  const choSua = (!bc && t.coTheNop) || (bc && t.coTheSua);
+  const mauTT = { dung_han: 'text-dung', nop_muon: 'text-muon', qua_han: 'text-tre', dang_mo: 'text-muc', chua_mo: 'text-xam' }[t.ma];
+  let dauTrang = `<div class="flex flex-wrap items-start justify-between gap-3">
+      <div><h1 class="text-xl font-bold">Báo cáo tuần ${t.tuan}</h1>
+      <p class="text-sm text-phu mt-0.5">Từ ${esc(t.tuNgay)} đến ${esc(t.denNgay)}. Hạn nộp ${fmt(t.hanNop)}.</p></div>
+      <span class="text-sm font-semibold ${mauTT}">${NHAN_MA[t.ma]}</span></div>`;
+
+  if (!bc && t.ma === 'chua_mo') {
+    $('#vung-tuan').innerHTML = dauTrang + `<div class="the p-5 mt-4">Tuần ${t.tuan} mở nộp lúc ${fmt(t.moNop)}.</div>`;
+    return;
+  }
+  if (!bc && !t.coTheNop) {
+    $('#vung-tuan').innerHTML = dauTrang + `<div class="the p-5 mt-4">Đã hết thời gian nộp tuần này. Nếu có lý do chính đáng, em nhắn giảng viên để được mở lại.</div>`;
+    return;
+  }
+
+  let thongTin = '';
+  if (bc) {
+    thongTin = `<div class="mt-4 rounded-xl bg-white border border-[#E3E5EF] p-4 text-sm flex flex-wrap gap-x-6 gap-y-2 items-center">
+      <span>Nộp lần đầu ${fmt(bc.NopLanDau)}</span>
+      ${bc.SoLanSua ? `<span>Sửa ${bc.SoLanSua} lần, gần nhất ${fmt(bc.CapNhatCuoi)}</span>` : ''}
+      <span>Mã xác nhận <b class="tracking-wider">${esc(bc.MaXacNhan)}</b></span>
+      <button type="button" id="nut-pdf-tuan" class="nut nut-phu ml-auto !py-2"><i class="fa-solid fa-file-pdf"></i> Tải PDF</button>
+    </div>
+    ${choSua ? `<p class="mt-3 text-sm text-phu">${t.ma === 'nop_muon' || !t.hanNop || bayGio() > t.hanNop ? 'Giảng viên đã mở cho em sửa một lần.' : 'Em còn sửa được đến ' + fmt(t.hanNop) + '. Sửa xong nhớ tải lại PDF.'}</p>` : ''}`;
+  } else if (t.ma === 'qua_han') {
+    thongTin = `<p class="mt-4 rounded-xl bg-[#FFF4E0] text-[#7A4A00] px-4 py-3 text-sm">Tuần này đã quá hạn. Em vẫn nộp được nhưng báo cáo sẽ ghi nhận "Nộp muộn" và không sửa lại được sau khi nộp.</p>`;
+  }
+
+  let stt = 0;
+  const n = () => (++stt) + '. ';
+  const cn = nhom('CN_HOATDONG');
+  const cm = nhom('CM_HOATDONG');
+  $('#vung-tuan').innerHTML = dauTrang + thongTin + `
+  <form id="f-tuan" class="mt-5 space-y-6" novalidate>
+    <fieldset ${choSua ? '' : 'disabled'} class="space-y-6">
+    <section class="the khoi" data-mau="cn">
+      <h2 class="dau-khoi"><i class="fa-solid fa-people-roof" aria-hidden="true"></i>Thực tập công tác chủ nhiệm</h2>
+      <div class="p-5 space-y-6">
+      <div class="grid sm:grid-cols-2 gap-5">
+        ${oCau('CN_Du', n() + 'Số tiết/giờ dự giờ hoặc quan sát hoạt động chủ nhiệm, trải nghiệm, hướng nghiệp', oSo('CN_Du', bc ? v.CN_Du : ''))}
+        ${oCau('CN_ToChuc', n() + 'Số tiết/giờ trực tiếp dạy hoặc tổ chức hoạt động chủ nhiệm, trải nghiệm, hướng nghiệp', oSo('CN_ToChuc', bc ? v.CN_ToChuc : ''))}
+      </div>
+      ${oCau('cn', n() + 'Các hoạt động công tác chủ nhiệm đã tham gia/thực hiện trong tuần', oTick('cn', cn, v.cn, 'CHUA'), 'Chọn tất cả các mục phù hợp.')}
+      ${oCau('CN_NoiDung', n() + 'Tên/nội dung hoạt động chủ nhiệm hoặc hoạt động giáo dục đã trực tiếp tổ chức', oVan('CN_NoiDung', v.CN_NoiDung))}
+      </div>
+    </section>
+    <section class="the khoi" data-mau="dh">
+      <h2 class="dau-khoi"><i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i>Thực tập dạy học</h2>
+      <div class="p-5 space-y-6">
+      <div class="grid sm:grid-cols-2 gap-5">
+        ${oCau('DH_Du', n() + 'Số tiết dự giờ dạy học trong tuần', oSo('DH_Du', bc ? v.DH_Du : ''))}
+        ${oCau('DH_Day', n() + 'Số tiết trực tiếp dạy trong tuần', oSo('DH_Day', bc ? v.DH_Day : ''))}
+      </div>
+      ${oCau('DH_BaiDay', n() + 'Tên các bài/chủ đề đã trực tiếp dạy trong tuần', oVan('DH_BaiDay', v.DH_BaiDay))}
+      ${oCau('cm', n() + 'Các hoạt động chuyên môn khác đã tham gia', oTick('cm', cm, v.cm, 'KHONG'))}
+      </div>
+    </section>
+    <section class="the khoi" data-mau="td">
+      <h2 class="dau-khoi"><i class="fa-solid fa-list-check" aria-hidden="true"></i>Tiến độ và khó khăn</h2>
+      <div class="p-5 space-y-6">
+      ${oCau('MucDoHoanThanh', n() + 'Mức độ hoàn thành kế hoạch thực tập trong tuần', oChon('MucDoHoanThanh', nhom('MUCDO_TUAN'), v.MucDoHoanThanh))}
+      ${oCau('TinhTrang', n() + 'Tình trạng thực tập hiện tại', oChon('TinhTrang', nhom('TINHTRANG'), v.TinhTrang))}
+      <div id="vung-kk" class="space-y-6">
+        ${oCau('KhoKhan', n() + 'Khó khăn hoặc vấn đề cần lưu ý', oVan('KhoKhan', v.KhoKhan))}
+        ${oCau('MongMuonHoTro', n() + 'Nội dung mong muốn giảng viên đồng hướng dẫn hỗ trợ', oVan('MongMuonHoTro', v.MongMuonHoTro))}
+      </div>
+      </div>
+    </section>
+    <section class="the khoi" data-mau="kh">
+      <h2 class="dau-khoi"><i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>Kế hoạch tuần tiếp theo</h2>
+      <div class="p-5 space-y-6">
+      ${oCau('KeHoachTuanSau', n() + 'Nhiệm vụ chính dự kiến thực hiện trong tuần tiếp theo', oVan('KeHoachTuanSau', v.KeHoachTuanSau))}
+      </div>
+    </section>
+    </fieldset>
+    <p class="loi hidden" id="loi-chung" role="alert"></p>
+    ${choSua ? `<div class="flex justify-end"><button type="submit" class="nut nut-chinh w-full sm:w-auto"><i class="fa-solid fa-paper-plane"></i> ${bc ? 'Lưu thay đổi' : (t.ma === 'qua_han' ? 'Nộp muộn báo cáo tuần ' + t.tuan : 'Nộp báo cáo tuần ' + t.tuan)}</button></div>` : ''}
+  </form>`;
+
+  const f = $('#f-tuan');
+  ganLoaiTru(f);
+  const capNhat = () => {
+    const tt = gtChon(f, 'TinhTrang');
+    const binhThuong = !tt || tt === 'Bình thường';
+    $('#vung-kk').classList.toggle('hidden', binhThuong);
+    const canHoTro = tt === 'Cần giảng viên đồng hướng dẫn hỗ trợ' || tt === 'Có vấn đề cần trao đổi sớm';
+    const nhan17 = $('[data-cau="MongMuonHoTro"] .nhan-cau');
+    if (!nhan17.dataset.so) nhan17.dataset.so = (nhan17.textContent.match(/^\d+\. /) || [''])[0];
+    nhan17.textContent = nhan17.dataset.so + 'Nội dung mong muốn giảng viên đồng hướng dẫn hỗ trợ' + (canHoTro ? '' : ' (không bắt buộc)');
+    if (!choSua) return;
+    [['CN_ToChuc', 'CN_NoiDung', 'Chưa có'], ['DH_Day', 'DH_BaiDay', 'Chưa thực dạy']].forEach(p => {
+      const so = parseInt(gt(f, p[0]), 10);
+      const vb = $('[name="' + p[1] + '"]', f);
+      const bang0 = gt(f, p[0]) !== '' && so === 0;
+      if (bang0) { if (vb.value && vb.value !== p[2]) vb.dataset.cu = vb.value; vb.value = p[2]; vb.disabled = true; }
+      else { vb.disabled = false; if (vb.value === p[2]) vb.value = vb.dataset.cu || ''; }
+    });
+  };
+  f.addEventListener('input', capNhat);
+  f.addEventListener('change', capNhat);
+  capNhat();
+  if (bc) $('#nut-pdf-tuan').onclick = ev => taiPdf('tuan', t.tuan, ev.currentTarget);
+
+  f.onsubmit = async ev => {
+    ev.preventDefault();
+    xoaLoi(f);
+    $('#loi-chung').classList.add('hidden');
+    const du = {
+      tuan: t.tuan,
+      CN_Du: gt(f, 'CN_Du'), CN_ToChuc: gt(f, 'CN_ToChuc'), cn: gtTick(f, 'cn'), CN_NoiDung: gt(f, 'CN_NoiDung'),
+      DH_Du: gt(f, 'DH_Du'), DH_Day: gt(f, 'DH_Day'), DH_BaiDay: gt(f, 'DH_BaiDay'), cm: gtTick(f, 'cm'),
+      MucDoHoanThanh: gtChon(f, 'MucDoHoanThanh'), TinhTrang: gtChon(f, 'TinhTrang'),
+      KhoKhan: gt(f, 'KhoKhan'), MongMuonHoTro: gt(f, 'MongMuonHoTro'), KeHoachTuanSau: gt(f, 'KeHoachTuanSau')
+    };
+    const xong = bocNut(ev.submitter || $('button[type=submit]', f), 'Đang gửi…');
+    try {
+      const kq2 = await api('saveWeekly', du);
+      bao((bc ? 'Đã lưu thay đổi báo cáo tuần ' : 'Đã nộp báo cáo tuần ') + t.tuan + '. Mã xác nhận ' + kq2.baoCao.MaXacNhan + '.', 'tot');
+      S.me = null;
+      await napMe();
+      veFormTuan({ tuan: kq.tuan, trangThai: kq2.trangThai, baoCao: kq2.baoCao });
+      $$('[role=tab]').forEach(a => { const tt2 = S.me.tuans.find(x => x.tuan === parseInt(a.textContent, 10)); if (tt2) a.dataset.ma = tt2.ma; });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (e) {
+      xong();
+      if (e.code === 'VALIDATION' && e.fields) {
+        hienLoi(f, e.fields);
+        bao(e.message, 'loi');
+      } else {
+        $('#loi-chung').textContent = e.message;
+        $('#loi-chung').classList.remove('hidden');
+      }
+      return;
+    }
+  };
+}
+
+/* ===================== Báo cáo tổng kết ===================== */
+const BUOC = [
+  { ma: 'A', ten: 'Thông tin chung', day: 'Thông tin chung' },
+  { ma: 'B', ten: 'Chủ nhiệm', day: 'Tổng kết thực tập công tác chủ nhiệm' },
+  { ma: 'C', ten: 'Dạy học', day: 'Tổng kết thực tập dạy học' },
+  { ma: 'D', ten: 'Điểm', day: 'Kết quả đánh giá cuối đợt' },
+  { ma: 'E', ten: 'Hồ sơ', day: 'Hồ sơ thực tập bắt buộc' },
+  { ma: 'F', ten: 'Nộp hồ sơ', day: 'Nộp hồ sơ' },
+  { ma: 'G', ten: 'Tiết dạy', day: 'Báo cáo về 01 tiết dạy được đánh giá' },
+  { ma: 'H', ten: 'Tự đánh giá', day: 'Tự đánh giá cuối đợt' },
+  { ma: 'X', ten: 'Xem lại và nộp', day: 'Xem lại và nộp' }
+];
+const MAU_BUOC = { B: 'cn', C: 'dh' };
+const ICON_BUOC = { A: 'fa-id-card', B: 'fa-people-roof', C: 'fa-chalkboard-user', D: 'fa-star', E: 'fa-folder-open', F: 'fa-cloud-arrow-up', G: 'fa-person-chalkboard', H: 'fa-seedling', X: 'fa-paper-plane' };
+const dauBuoc = b => '<i class="fa-solid ' + ICON_BUOC[b.ma] + '" aria-hidden="true"></i>' + esc(b.ma === 'X' ? b.day : b.ma + '. ' + b.day);
+const TRUONG_BUOC = {
+  A: ['LopTT_DayHoc', 'LopTT_ChuNhiem', 'GVHD_DayHoc', 'GVHD_ChuNhiem'],
+  B: ['TK_CN_Du', 'TK_CN_ToChuc', 'TK_CN_SoTietDG', 'tkcn', 'TK_CN_TieuBieu'],
+  C: ['TK_DH_Du', 'TK_DH_Day', 'TK_DH_SoTietDG', 'TK_DH_CacLop', 'TK_DH_NoiDung', 'GiaiThichChenhLech'],
+  D: ['Diem_DH', 'Diem_CN', 'Diem_TTSP'],
+  E: ['HS_P56', 'HS_P1', 'HS_P2', 'HS_P3', 'HS_P4', 'HS_ThuHoach'],
+  F: ['LinkDrive', 'HS_TinhTrangChung', 'HS_ConThieu', 'XacNhanQuyen'],
+  G: ['TD_TenBai', 'TD_Lop', 'TD_Ngay', 'TD_Tiet', 'TD_Diem', 'TD_LinkGiaoAn', 'TD_DiemTot', 'TD_HanChe', 'TD_DieuChinh'],
+  H: ['TDG_MucDo', 'TDG_NangLuc', 'TDG_NangLucKhac', 'TDG_YNghia', 'TDG_HanChe', 'TDG_BaiHoc', 'XacNhanChinhXac']
+};
+const HO_SO = [
+  ['HS_P56', 'Phiếu nhận xét kết quả thực tập sư phạm (Phiếu số 5 hoặc 6)', 'HOSO_2'],
+  ['HS_P1', 'Các phiếu đánh giá tiết dạy (Phiếu số 1)', 'HOSO_3'],
+  ['HS_P2', 'Phiếu tổng hợp đánh giá công tác thực tập dạy học (Phiếu số 2)', 'HOSO_2'],
+  ['HS_P3', 'Các phiếu đánh giá công tác thực tập chủ nhiệm (Phiếu số 3)', 'HOSO_3'],
+  ['HS_P4', 'Phiếu tổng hợp đánh giá nội dung thực tập làm chủ nhiệm (Phiếu số 4)', 'HOSO_2'],
+  ['HS_ThuHoach', 'Bản thu hoạch tìm hiểu thực tế giáo dục', 'HOSO_2']
+];
+
+const THU_TU_TK = ['LopTT_DayHoc', 'LopTT_ChuNhiem', 'GVHD_DayHoc', 'GVHD_ChuNhiem',
+  'TK_CN_Du', 'TK_CN_ToChuc', 'TK_CN_SoTietDG', 'tkcn', 'TK_CN_TieuBieu',
+  'TK_DH_Du', 'TK_DH_Day', 'TK_DH_SoTietDG', 'TK_DH_CacLop', 'TK_DH_NoiDung',
+  'Diem_DH', 'Diem_CN', 'Diem_TTSP',
+  'HS_P56', 'HS_P1', 'HS_P2', 'HS_P3', 'HS_P4', 'HS_ThuHoach',
+  'LinkDrive', 'HS_TinhTrangChung', 'HS_ConThieu', 'XacNhanQuyen',
+  'TD_TenBai', 'TD_Lop', 'TD_Ngay', 'TD_Tiet', 'TD_Diem', 'TD_LinkGiaoAn', 'TD_DiemTot', 'TD_HanChe', 'TD_DieuChinh',
+  'TDG_MucDo', 'TDG_NangLuc', 'TDG_YNghia', 'TDG_HanChe', 'TDG_BaiHoc', 'XacNhanChinhXac'];
+/** Số thứ tự câu hỏi trên web (bản in PDF giữ số theo mẫu báo cáo). */
+function so(ten) { const i = THU_TU_TK.indexOf(ten); return i >= 0 ? (i + 1) + '. ' : ''; }
+
+function buocCua(field) {
+  for (const k in TRUONG_BUOC) if (TRUONG_BUOC[k].indexOf(field) >= 0) return k;
+  return 'X';
+}
+
+async function veTongKet() {
+  $('#noi-dung').innerHTML = '<p class="text-phu py-10 text-center">Đang tải báo cáo tổng kết…</p>';
+  if (!S.me) await napMe();
+  const kq = await api('getFinal');
+  S.final = kq;
+  S.finalErrors = {};
+  const bc = kq.baoCao;
+  S.finalData = bc ? JSON.parse(JSON.stringify(bc)) : { tkcn: Object.assign({}, kq.tuTuan.cn) };
+  if (!bc || !bc.tkcn || !Object.values(bc.tkcn).some(Boolean)) S.finalData.tkcn = Object.assign({}, kq.tuTuan.cn, (bc && bc.tkcn) || {});
+  if (!S.finalStep) S.finalStep = 'A';
+  veTongKetKhung();
+}
+
+function cheDoTK() {
+  const k = S.final;
+  const daNop = k.trangThai === 'Đã nộp';
+  if (!k.cuaSo.daMo) return 'chua-mo';
+  if (k.cuaSo.coTheSua) return daNop ? 'sua-ban-nop' : 'soan';
+  if (daNop) return k.cuaSo.coTheSuaDiem ? 'chi-diem' : 'chi-xem';
+  return 'het-han';
+}
+
+function veTongKetKhung() {
+  const k = S.final;
+  const mode = cheDoTK();
+  const nd = $('#noi-dung');
+  const tieuDe = `<h1 class="text-xl font-bold">Báo cáo tổng kết đợt thực tập</h1>`;
+  if (mode === 'chua-mo') {
+    nd.innerHTML = tieuDe + `<div class="the p-5 mt-4">Báo cáo tổng kết mở từ ${k.cuaSo.moLuc ? fmt(k.cuaSo.moLuc) : 'thời gian giảng viên thông báo'}.</div>`;
+    return;
+  }
+  if (mode === 'het-han') {
+    nd.innerHTML = tieuDe + `<div class="the p-5 mt-4">Đã hết hạn nộp báo cáo tổng kết (${fmt(k.cuaSo.hanLuc)}). Em nhắn giảng viên nếu cần mở lại.</div>`;
+    return;
+  }
+  const bc = k.baoCao;
+  let dau = tieuDe;
+  if (bc && k.trangThai === 'Đã nộp') {
+    dau += `<div class="mt-4 rounded-xl bg-white border border-[#E3E5EF] p-4 text-sm flex flex-wrap gap-x-6 gap-y-2 items-center">
+      <span class="font-semibold text-dung"><i class="fa-solid fa-circle-check"></i> Đã nộp</span>
+      <span>Nộp lần đầu ${fmt(bc.NopLanDau)}</span>
+      <span>Cập nhật ${fmt(bc.CapNhatCuoi)}</span>
+      <span>Mã xác nhận <b class="tracking-wider">${esc(bc.MaXacNhan)}</b></span>
+      <button type="button" id="nut-pdf-tk" class="nut nut-phu ml-auto !py-2"><i class="fa-solid fa-file-pdf"></i> Tải PDF</button>
+    </div>`;
+  } else if (k.cuaSo.hanLuc) {
+    dau += `<p class="text-sm text-phu mt-1">Hạn nộp ${fmt(k.cuaSo.hanLuc)}, còn ${conLai(k.cuaSo.hanLuc)}. ${bc ? 'Bản nháp lưu lúc ' + fmt(bc.CapNhatCuoi) + '.' : 'Bản nháp được tự lưu mỗi khi em chuyển bước.'}</p>`;
+  }
+
+  if (mode === 'chi-xem' || mode === 'chi-diem') {
+    nd.innerHTML = dau + (mode === 'chi-diem' ? veKhoiDiem() : '') +
+      `<div class="mt-6 space-y-6"><fieldset disabled class="space-y-6">${BUOC.filter(b => b.ma !== 'X').map(b => `<section class="the khoi" data-mau="${MAU_BUOC[b.ma] || 'chung'}"><h2 class="dau-khoi">${dauBuoc(b)}</h2><div class="p-5 space-y-6">${noiDungBuoc(b.ma)}</div></section>`).join('')}</fieldset></div>`;
+    if ($('#nut-pdf-tk')) $('#nut-pdf-tk').onclick = ev => taiPdf('tongKet', null, ev.currentTarget);
+    if (mode === 'chi-diem') ganKhoiDiem();
+    return;
+  }
+
+  // Soạn hoặc sửa bản đã nộp: dạng từng bước
+  nd.innerHTML = dau + `
+    <nav class="sticky top-14 z-20 bg-giay mt-4 py-2.5 flex gap-2 overflow-x-auto -mx-4 px-4" aria-label="Các bước">
+      ${BUOC.map(b => `<button type="button" class="buoc shrink-0 rounded-full border border-[#D6D0F0] bg-white px-3 py-1.5 text-sm" data-buoc="${b.ma}">${b.ma === 'X' ? b.ten : b.ma + '. ' + b.ten}</button>`).join('')}
+    </nav>
+    <form id="f-tk" class="mt-4" novalidate>
+      <section class="the khoi" id="khoi-buoc"><h2 id="tieu-de-buoc" class="dau-khoi"></h2><div id="than-buoc" class="p-5 space-y-6"></div></section>
+      <p class="text-sm text-phu mt-3" id="trang-thai-luu"></p>
+      <div class="flex gap-3 mt-4">
+        <button type="button" id="nut-lui" class="nut nut-phu"><i class="fa-solid fa-arrow-left"></i> Quay lại</button>
+        <button type="button" id="nut-tiep" class="nut nut-chinh ml-auto">Tiếp</button>
+      </div>
+    </form>`;
+  if ($('#nut-pdf-tk')) $('#nut-pdf-tk').onclick = ev => taiPdf('tongKet', null, ev.currentTarget);
+  $$('.buoc').forEach(b => { b.onclick = () => chuyenBuoc(b.dataset.buoc); });
+  $('#nut-lui').onclick = () => { const i = BUOC.findIndex(b => b.ma === S.finalStep); if (i > 0) chuyenBuoc(BUOC[i - 1].ma); };
+  $('#nut-tiep').onclick = () => { const i = BUOC.findIndex(b => b.ma === S.finalStep); if (i < BUOC.length - 1) chuyenBuoc(BUOC[i + 1].ma); };
+  const f = $('#f-tk');
+  f.addEventListener('input', () => thuThapBuoc());
+  f.addEventListener('change', () => thuThapBuoc());
+  f.onsubmit = ev => ev.preventDefault();
+  veBuoc();
+}
+
+function veBuoc() {
+  const b = BUOC.find(x => x.ma === S.finalStep) || BUOC[0];
+  $('#tieu-de-buoc').innerHTML = dauBuoc(b);
+  $('#khoi-buoc').dataset.mau = MAU_BUOC[b.ma] || 'chung';
+  const cu = $('#than-buoc');
+  cu.replaceWith(cu.cloneNode(false));
+  $('#than-buoc').innerHTML = b.ma === 'X' ? noiDungXemLai() : noiDungBuoc(b.ma);
+  $$('.buoc').forEach(x => {
+    x.setAttribute('aria-current', x.dataset.buoc === b.ma ? 'step' : 'false');
+    const coLoi = (TRUONG_BUOC[x.dataset.buoc] || []).some(t => S.finalErrors[t]);
+    x.classList.toggle('co-loi', coLoi);
+  });
+  $('#nut-lui').classList.toggle('invisible', b.ma === 'A');
+  $('#nut-tiep').classList.toggle('hidden', b.ma === 'X');
+  ganBuoc(b.ma);
+  const loi = Object.keys(S.finalErrors).filter(t => buocCua(t) === b.ma).map(t => ({ field: t, message: S.finalErrors[t] }));
+  if (loi.length) hienLoi($('#than-buoc'), loi);
+  const act = $('.buoc[aria-current="step"]');
+  if (act && act.scrollIntoView) act.scrollIntoView({ inline: 'center', block: 'nearest' });
+}
+
+async function chuyenBuoc(ma) {
+  thuThapBuoc();
+  const mode = cheDoTK();
+  if (mode === 'soan') luuNhap();
+  S.finalStep = ma;
+  veBuoc();
+  const f = $('#f-tk');
+  if (f) window.scrollTo({ top: f.getBoundingClientRect().top + window.scrollY - 140, behavior: 'smooth' });
+}
+
+let dangLuuNhap = null;
+async function luuNhap() {
+  if (dangLuuNhap) return;
+  const tt = $('#trang-thai-luu');
+  dangLuuNhap = api('saveFinalDraft', S.finalData)
+    .then(kq => { S.finalSavedAt = kq.luuLuc; if (tt) tt.textContent = 'Đã lưu nháp lúc ' + fmt(kq.luuLuc) + '.'; })
+    .catch(e => { if (tt) tt.textContent = 'Chưa lưu được nháp: ' + e.message; })
+    .finally(() => { dangLuuNhap = null; });
+}
+
+function thuThapBuoc() {
+  const r = $('#than-buoc');
+  if (!r) return;
+  const d = S.finalData;
+  $$('input[type=text], input[type=number], input[type=date], input[type=url], textarea', r).forEach(x => {
+    if (!x.name || x.dataset.boQua) return;
+    d[x.name] = x.value;
+  });
+  $$('input[type=radio]:checked', r).forEach(x => { d[x.name] = x.value; });
+  if ($('input[name="tkcn"]', r)) d.tkcn = gtTick(r, 'tkcn');
+  $$('input[type=checkbox][data-don]', r).forEach(x => { d[x.name] = x.checked; });
+  $$('input[type=checkbox][data-chua-diem]', r).forEach(x => { if (x.checked) d[x.dataset.chuaDiem] = ''; });
+}
+
+function lech(tenTK, tenTuan) {
+  const v = S.finalData[tenTK];
+  if (v === '' || v === undefined || v === null) return false;
+  return Math.abs(Number(v) - S.final.tuTuan[tenTuan]) > (S.final.dungSaiLech || 0);
+}
+
+function coLech() {
+  return lech('TK_CN_Du', 'CN_Du') || lech('TK_CN_ToChuc', 'CN_ToChuc') || lech('TK_DH_Du', 'DH_Du') || lech('TK_DH_Day', 'DH_Day');
+}
+
+function goiYTuan(tenTK, tenTuan) {
+  const n = S.final.tuTuan[tenTuan];
+  return `<p class="text-sm mt-2" data-goi-y="${tenTK}">Tổng từ báo cáo tuần của em: <b>${n}</b> <span data-lech-chu="${tenTK}" class="text-muon ${lech(tenTK, tenTuan) ? '' : 'hidden'}">· khác số em vừa nhập</span></p>`;
+}
+
+function oDiem(ten, nhan) {
+  const v = S.finalData[ten];
+  const chua = v === '' || v === undefined || v === null;
+  return oCau(ten, nhan, `<div class="flex flex-wrap items-center gap-3">
+    <input type="text" inputmode="decimal" name="${ten}" value="${chua ? '' : esc(String(v).replace('.', ','))}" class="max-w-[8rem]" placeholder="Ví dụ 8,5" ${chua ? 'disabled' : ''}>
+    <span class="text-phu">/10</span>
+    <label class="flex items-center gap-2 text-sm"><input type="checkbox" data-chua-diem="${ten}" ${chua ? 'checked' : ''} class="w-4 h-4 accent-[#4B3A9E]"> Chưa có điểm</label>
+  </div>`);
+}
+
+function oLink(ten, nhan, goiY) {
+  const d = S.finalData;
+  const kt = d[ten + '_KT'] || '';
+  return oCau(ten, nhan, `<div class="flex gap-2"><input type="url" name="${ten}" value="${esc(d[ten])}" placeholder="https://drive.google.com/…" autocomplete="off">
+    <button type="button" class="nut nut-phu shrink-0 !px-3" data-kiem-tra="${ten}" aria-label="Kiểm tra link"><i class="fa-solid fa-link"></i><span class="hidden sm:inline">Kiểm tra</span></button></div>
+    <p class="text-sm mt-2" data-kq-link="${ten}">${kt === 'Mở được' ? '<span class="text-dung"><i class="fa-solid fa-circle-check"></i> Mở được</span>' : kt === 'Không mở được' ? '<span class="text-tre"><i class="fa-solid fa-circle-xmark"></i> Không mở được</span>' : ''}</p>`, goiY);
+}
+
+function noiDungBuoc(ma) {
+  const d = S.finalData;
+  const hs = S.final.hoSoCaNhan;
+  const pa = S.final.phuongAn;
+  const ngay = s => s ? s.split('-').reverse().join('/') : '…';
+  switch (ma) {
+    case 'A':
+      return `<dl class="grid sm:grid-cols-2 gap-x-6 gap-y-3 text-[15px]">
+          <div><dt class="text-sm text-phu">Họ và tên</dt><dd class="font-medium">${esc(hs.HoTen)}</dd></div>
+          <div><dt class="text-sm text-phu">Mã sinh viên</dt><dd class="font-medium">${esc(hs.MSSV)}</dd></div>
+          <div><dt class="text-sm text-phu">Lớp</dt><dd class="font-medium">${esc(hs.Lop)}</dd></div>
+          <div><dt class="text-sm text-phu">Ngành đào tạo</dt><dd class="font-medium">${esc(hs.Nganh)}</dd></div>
+          <div><dt class="text-sm text-phu">Trường thực tập</dt><dd class="font-medium">${esc(hs.TruongTT)}</dd></div>
+          <div><dt class="text-sm text-phu">Thời gian thực tập</dt><dd class="font-medium">Từ ${ngay(hs.TuNgay)} đến ${ngay(hs.DenNgay)}</dd></div>
+        </dl>
+        <div class="grid sm:grid-cols-2 gap-5">
+          ${oCau('LopTT_DayHoc', so('LopTT_DayHoc') + 'Lớp thực tập dạy học', oChu('LopTT_DayHoc', d.LopTT_DayHoc, 'placeholder="Ví dụ 10A1, 10A3"'))}
+          ${oCau('LopTT_ChuNhiem', so('LopTT_ChuNhiem') + 'Lớp thực tập chủ nhiệm', oChu('LopTT_ChuNhiem', d.LopTT_ChuNhiem))}
+          ${oCau('GVHD_DayHoc', so('GVHD_DayHoc') + 'Giáo viên hướng dẫn dạy học', oChu('GVHD_DayHoc', d.GVHD_DayHoc))}
+          ${oCau('GVHD_ChuNhiem', so('GVHD_ChuNhiem') + 'Giáo viên hướng dẫn thực tập chủ nhiệm', oChu('GVHD_ChuNhiem', d.GVHD_ChuNhiem))}
+        </div>`;
+    case 'B':
+      return `<div class="grid sm:grid-cols-2 gap-5">
+          ${oCau('TK_CN_Du', so('TK_CN_Du') + 'Tổng số tiết/giờ dự giờ hoặc quan sát hoạt động chủ nhiệm, trải nghiệm, hướng nghiệp', oSo('TK_CN_Du', d.TK_CN_Du) + goiYTuan('TK_CN_Du', 'CN_Du'))}
+          ${oCau('TK_CN_ToChuc', so('TK_CN_ToChuc') + 'Tổng số tiết/giờ trực tiếp dạy hoặc tổ chức hoạt động chủ nhiệm, trải nghiệm, hướng nghiệp', oSo('TK_CN_ToChuc', d.TK_CN_ToChuc) + goiYTuan('TK_CN_ToChuc', 'CN_ToChuc'))}
+          ${oCau('TK_CN_SoTietDG', so('TK_CN_SoTietDG') + 'Tổng số tiết/giờ dạy hoặc tổ chức hoạt động chủ nhiệm, trải nghiệm, hướng nghiệp được giáo viên hướng dẫn đánh giá', oSo('TK_CN_SoTietDG', d.TK_CN_SoTietDG))}
+        </div>
+        ${oCau('tkcn', so('tkcn') + 'Các loại hoạt động chủ nhiệm/giáo dục đã tham gia', oTick('tkcn', (pa.CN_HOATDONG || []).filter(o => o.ma !== 'CHUA'), d.tkcn), 'Đã chọn sẵn theo các báo cáo tuần của em; chỉnh lại nếu cần.')}
+        ${oCau('TK_CN_TieuBieu', so('TK_CN_TieuBieu') + 'Tên một số hoạt động chủ nhiệm/giáo dục tiêu biểu đã trực tiếp tổ chức', oVan('TK_CN_TieuBieu', d.TK_CN_TieuBieu))}`;
+    case 'C':
+      return `<div class="grid sm:grid-cols-2 gap-5">
+          ${oCau('TK_DH_Du', so('TK_DH_Du') + 'Tổng số tiết dự giờ dạy học', oSo('TK_DH_Du', d.TK_DH_Du) + goiYTuan('TK_DH_Du', 'DH_Du'))}
+          ${oCau('TK_DH_Day', so('TK_DH_Day') + 'Tổng số tiết trực tiếp dạy', oSo('TK_DH_Day', d.TK_DH_Day) + goiYTuan('TK_DH_Day', 'DH_Day'))}
+          ${oCau('TK_DH_SoTietDG', so('TK_DH_SoTietDG') + 'Tổng số tiết dạy được giáo viên hướng dẫn đánh giá', oSo('TK_DH_SoTietDG', d.TK_DH_SoTietDG))}
+        </div>
+        ${oCau('TK_DH_CacLop', so('TK_DH_CacLop') + 'Các lớp đã trực tiếp dạy', oChu('TK_DH_CacLop', d.TK_DH_CacLop))}
+        ${oCau('TK_DH_NoiDung', so('TK_DH_NoiDung') + 'Các nội dung/chủ đề chính đã dạy', oVan('TK_DH_NoiDung', d.TK_DH_NoiDung))}
+        <div id="vung-giai-thich" class="${coLech() ? '' : 'hidden'}">
+          ${oCau('GiaiThichChenhLech', 'Giải thích chênh lệch so với báo cáo tuần', oVan('GiaiThichChenhLech', d.GiaiThichChenhLech), 'Số em khai ở câu 11, 12, 15 hoặc 16 khác tổng từ báo cáo tuần. Ghi ngắn gọn lý do, ví dụ tuần nào khai thiếu.')}
+        </div>`;
+    case 'D':
+      return `<p class="text-sm text-phu -mt-2">Nếu chưa có điểm, em chọn "Chưa có điểm" và nộp bình thường; khi có điểm thì vào lại đây cập nhật.</p>
+        ${oDiem('Diem_DH', so('Diem_DH') + 'Điểm thực tập dạy học')}
+        ${oDiem('Diem_CN', so('Diem_CN') + 'Điểm thực tập công tác chủ nhiệm')}
+        ${oDiem('Diem_TTSP', so('Diem_TTSP') + 'Điểm TTSP tổng hợp')}`;
+    case 'E':
+      return HO_SO.map(h => oCau(h[0], so(h[0]) + h[1], `<div class="flex flex-wrap gap-2">${(pa[h[2]] || []).map(o => `
+          <label class="lua-chon"><input type="radio" name="${h[0]}" value="${esc(o.nhan)}" ${d[h[0]] === o.nhan ? 'checked' : ''}><span>${esc(o.nhan)}</span></label>`).join('')}</div>`)).join('');
+    case 'F':
+      return `${oLink('LinkDrive', so('LinkDrive') + 'Link thư mục Google Drive chứa toàn bộ hồ sơ thực tập', 'Trong Google Drive: bấm chuột phải vào thư mục → Chia sẻ → Quyền truy cập chung: <b>Bất kỳ ai có đường liên kết</b>, vai trò <b>Người xem</b> → Sao chép đường liên kết.')}
+        ${oCau('HS_TinhTrangChung', so('HS_TinhTrangChung') + 'Tình trạng chung của hồ sơ', oChon('HS_TinhTrangChung', pa.HOSO_CHUNG || [], d.HS_TinhTrangChung))}
+        <div id="vung-thieu" class="${d.HS_TinhTrangChung && d.HS_TinhTrangChung !== 'Đầy đủ' ? '' : 'hidden'}">
+          ${oCau('HS_ConThieu', so('HS_ConThieu') + 'Hồ sơ nào còn thiếu?', oVan('HS_ConThieu', d.HS_ConThieu))}
+        </div>
+        ${oCau('XacNhanQuyen', so('XacNhanQuyen') + 'Xác nhận quyền truy cập', `<label class="lua-chon"><input type="checkbox" name="XacNhanQuyen" data-don="1" ${d.XacNhanQuyen ? 'checked' : ''}><span>Em đã cấp quyền xem thư mục cho giảng viên đồng hướng dẫn.</span></label>`)}`;
+    case 'G': {
+      const hsNgay = S.final.hoSoCaNhan;
+      return `<p class="text-sm text-phu -mt-2">Chọn 01 tiết dạy đã được giáo viên hướng dẫn đánh giá để báo cáo.</p>
+        ${oCau('TD_TenBai', so('TD_TenBai') + 'Tên bài/chủ đề của tiết dạy', oChu('TD_TenBai', d.TD_TenBai))}
+        <div class="grid sm:grid-cols-3 gap-5">
+          ${oCau('TD_Lop', so('TD_Lop') + 'Lớp dạy', oChu('TD_Lop', d.TD_Lop))}
+          ${oCau('TD_Ngay', so('TD_Ngay') + 'Ngày dạy', `<input type="date" name="TD_Ngay" value="${esc(d.TD_Ngay)}" ${hsNgay.TuNgay ? 'min="' + hsNgay.TuNgay + '"' : ''} ${hsNgay.DenNgay ? 'max="' + hsNgay.DenNgay + '"' : ''}>`)}
+          ${oCau('TD_Tiet', so('TD_Tiet') + 'Tiết thứ/thời lượng (không bắt buộc)', oChu('TD_Tiet', d.TD_Tiet, 'placeholder="Ví dụ tiết 2, 45 phút"'))}
+        </div>
+        ${oDiem('TD_Diem', so('TD_Diem') + 'Điểm giáo viên hướng dẫn đánh giá tiết dạy')}
+        ${oLink('TD_LinkGiaoAn', so('TD_LinkGiaoAn') + 'Link giáo án/kế hoạch bài dạy của tiết này', 'Dán link file giáo án (Google Docs, PDF hoặc Word trên Drive), chia sẻ chế độ <b>Bất kỳ ai có đường liên kết</b>.')}
+        ${oCau('TD_DiemTot', so('TD_DiemTot') + 'Những điểm em đã thực hiện tốt trong tiết dạy', oVan('TD_DiemTot', d.TD_DiemTot))}
+        ${oCau('TD_HanChe', so('TD_HanChe') + 'Những hạn chế/vấn đề cần cải thiện', oVan('TD_HanChe', d.TD_HanChe))}
+        ${oCau('TD_DieuChinh', so('TD_DieuChinh') + 'Nếu được dạy lại tiết này, em sẽ điều chỉnh điều gì?', oVan('TD_DieuChinh', d.TD_DieuChinh))}`;
+    }
+    case 'H':
+      return `${oCau('TDG_MucDo', so('TDG_MucDo') + 'Mức độ hoàn thành đợt thực tập', oChon('TDG_MucDo', pa.MUCDO_DOT || [], d.TDG_MucDo))}
+        ${oCau('TDG_NangLuc', so('TDG_NangLuc') + 'Năng lực bản thân tiến bộ rõ nhất (chọn một)', `<div class="grid sm:grid-cols-2 gap-2">${(pa.NANGLUC || []).map(o => `
+            <label class="lua-chon"><input type="radio" name="TDG_NangLuc" value="${esc(o.nhan)}" ${d.TDG_NangLuc === o.nhan ? 'checked' : ''}><span>${esc(o.nhan)}</span></label>`).join('')}</div>`)}
+        <div id="vung-nl-khac" class="${d.TDG_NangLuc === 'Khác' ? '' : 'hidden'}">${oCau('TDG_NangLucKhac', 'Ghi rõ năng lực khác', oChu('TDG_NangLucKhac', d.TDG_NangLucKhac))}</div>
+        ${oCau('TDG_YNghia', so('TDG_YNghia') + 'Kết quả hoặc trải nghiệm có ý nghĩa nhất trong đợt thực tập', oVan('TDG_YNghia', d.TDG_YNghia))}
+        ${oCau('TDG_HanChe', so('TDG_HanChe') + 'Hạn chế lớn nhất bản thân cần tiếp tục cải thiện', oVan('TDG_HanChe', d.TDG_HanChe))}
+        ${oCau('TDG_BaiHoc', so('TDG_BaiHoc') + 'Bài học kinh nghiệm quan trọng nhất sau đợt thực tập', oVan('TDG_BaiHoc', d.TDG_BaiHoc))}
+        ${oCau('XacNhanChinhXac', so('XacNhanChinhXac') + 'Xác nhận', `<label class="lua-chon"><input type="checkbox" name="XacNhanChinhXac" data-don="1" ${d.XacNhanChinhXac ? 'checked' : ''}><span>Em xác nhận các thông tin trong báo cáo là chính xác.</span></label>`)}`;
+  }
+  return '';
+}
+
+function ganBuoc(ma) {
+  const r = $('#than-buoc');
+  ganLoaiTru(r);
+  // Ô "Chưa có điểm"
+  $$('input[data-chua-diem]', r).forEach(cb => cb.addEventListener('change', () => {
+    const o = $('input[name="' + cb.dataset.chuaDiem + '"]', r);
+    o.disabled = cb.checked;
+    if (cb.checked) { o.value = ''; S.finalData[cb.dataset.chuaDiem] = ''; } else o.focus();
+  }));
+  // Gợi ý chênh lệch
+  if (ma === 'B' || ma === 'C') {
+    r.addEventListener('input', () => {
+      thuThapBuoc();
+      [['TK_CN_Du', 'CN_Du'], ['TK_CN_ToChuc', 'CN_ToChuc'], ['TK_DH_Du', 'DH_Du'], ['TK_DH_Day', 'DH_Day']].forEach(p => {
+        const el = $('[data-lech-chu="' + p[0] + '"]', r);
+        if (el) el.classList.toggle('hidden', !lech(p[0], p[1]));
+      });
+      const vg = $('#vung-giai-thich', r);
+      if (vg) vg.classList.toggle('hidden', !coLech());
+    });
+  }
+  if (ma === 'F') r.addEventListener('change', () => { thuThapBuoc(); $('#vung-thieu', r).classList.toggle('hidden', !S.finalData.HS_TinhTrangChung || S.finalData.HS_TinhTrangChung === 'Đầy đủ'); });
+  if (ma === 'H') r.addEventListener('change', () => { thuThapBuoc(); $('#vung-nl-khac', r).classList.toggle('hidden', S.finalData.TDG_NangLuc !== 'Khác'); });
+  // Kiểm tra link
+  $$('[data-kiem-tra]', r).forEach(nut => {
+    const ten = nut.dataset.kiemTra;
+    const o = $('input[name="' + ten + '"]', r);
+    const chay = async () => {
+      const url = o.value.trim();
+      const kq = $('[data-kq-link="' + ten + '"]', r);
+      if (!url) { kq.innerHTML = ''; return; }
+      kq.innerHTML = '<span class="text-phu"><i class="fa-solid fa-spinner fa-spin"></i> Đang thử mở link…</span>';
+      try {
+        const x = await api('checkLink', { url: url });
+        S.finalData[ten + '_KT'] = x.trangThai;
+        if (x.trangThai === 'Mở được') kq.innerHTML = '<span class="text-dung"><i class="fa-solid fa-circle-check"></i> Mở được: ' + esc(x.loai) + ' "' + esc(x.ten) + '"</span>';
+        else if (x.trangThai === 'Không mở được') kq.innerHTML = '<span class="text-tre"><i class="fa-solid fa-circle-xmark"></i> Không mở được. Kiểm tra lại chế độ chia sẻ: Bất kỳ ai có đường liên kết, Người xem.</span>';
+        else if (!x.hopLe) kq.innerHTML = '<span class="text-tre"><i class="fa-solid fa-circle-xmark"></i> Đây không phải link Google Drive/Docs.</span>';
+        else kq.innerHTML = '<span class="text-muon">Chưa kiểm tra được lúc này, hệ thống sẽ thử lại khi nộp.</span>';
+      } catch (e) { kq.innerHTML = '<span class="text-tre">' + esc(e.message) + '</span>'; }
+    };
+    nut.onclick = chay;
+    o.addEventListener('change', chay);
+  });
+  // Bước xem lại
+  if (ma === 'X') {
+    const n = $('#nut-nop-tk');
+    if (n) n.onclick = () => nopTongKet(n);
+    $$('[data-den-buoc]', r).forEach(a => { a.onclick = ev => { ev.preventDefault(); chuyenBuoc(a.dataset.denBuoc); }; });
+  }
+}
+
+function noiDungXemLai() {
+  const d = S.finalData;
+  const daNop = S.final.trangThai === 'Đã nộp';
+  const loi = Object.keys(S.finalErrors);
+  const dem = BUOC.filter(b => b.ma !== 'X').map(b => {
+    const ds = TRUONG_BUOC[b.ma];
+    const so = ds.filter(t => S.finalErrors[t]).length;
+    return `<li class="flex items-center justify-between gap-3 py-2 border-b border-[#EEF0F6] last:border-0">
+      <a href="#" data-den-buoc="${b.ma}" class="text-muc hover:underline">${b.ma}. ${b.ten}</a>
+      ${so ? `<span class="text-tre text-sm">${so} chỗ cần sửa</span>` : `<span class="text-phu text-sm">${loi.length ? 'Ổn' : ''}</span>`}</li>`;
+  }).join('');
+  const lechNote = coLech() ? `<p class="rounded-xl bg-[#FFF4E0] text-[#7A4A00] px-4 py-3 text-sm">Số liệu tổng kết của em khác tổng từ báo cáo tuần. Giảng viên sẽ thấy cả hai số cùng phần giải thích của em ở bước C.</p>` : '';
+  return `<p class="text-[15px] leading-relaxed">${daNop ? 'Em đang sửa bản đã nộp. Bấm nút dưới để cập nhật; mã xác nhận sẽ đổi, nhớ tải lại PDF.' : 'Hệ thống sẽ kiểm tra toàn bộ báo cáo khi em bấm nộp. Nếu còn thiếu, các bước cần sửa sẽ được tô đỏ.'}</p>
+    ${lechNote}
+    <ul class="mt-2">${dem}</ul>
+    ${!d.XacNhanChinhXac ? '<p class="text-sm text-phu">Nhớ đánh dấu ô xác nhận ở câu 47 (bước H) trước khi nộp.</p>' : ''}
+    <button type="button" id="nut-nop-tk" class="nut nut-chinh w-full sm:w-auto"><i class="fa-solid fa-paper-plane"></i> ${daNop ? 'Cập nhật bản đã nộp' : 'Nộp báo cáo tổng kết'}</button>`;
+}
+
+async function nopTongKet(nut) {
+  thuThapBuoc();
+  const xong = bocNut(nut, 'Đang kiểm tra và nộp…');
+  const daNop = S.final.trangThai === 'Đã nộp';
+  try {
+    await api('submitFinal', S.finalData);
+    S.finalErrors = {};
+    bao(daNop ? 'Đã cập nhật bản đã nộp.' : 'Đã nộp báo cáo tổng kết.', 'tot');
+    S.me = null;
+    S.finalStep = 'A';
+    await veTongKet();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (e) {
+    xong();
+    if (e.code === 'VALIDATION' && e.fields) {
+      S.finalErrors = {};
+      e.fields.forEach(f => { S.finalErrors[f.field] = (S.finalErrors[f.field] ? S.finalErrors[f.field] + ' ' : '') + f.message; });
+      bao(e.message + ' Các bước có viền đỏ cần sửa.', 'loi');
+      const dau = BUOC.find(b => (TRUONG_BUOC[b.ma] || []).some(t => S.finalErrors[t]));
+      S.finalStep = dau ? dau.ma : 'X';
+      veBuoc();
+    } else bao(e.message, 'loi');
+  }
+}
+
+function veKhoiDiem() {
+  const d = S.finalData;
+  return `<section class="the khoi mt-5" data-mau="chung">
+    <h2 class="dau-khoi"><i class="fa-solid fa-star" aria-hidden="true"></i>Cập nhật điểm</h2>
+    <div class="p-5"><p class="text-sm text-phu">Báo cáo đã khóa, em vẫn cập nhật được điểm${S.final.cuaSo.khoaDiemLuc ? ' đến ' + fmt(S.final.cuaSo.khoaDiemLuc) : ''}.</p>
+    <div id="khoi-diem" class="mt-4 space-y-5">
+      ${oDiem('Diem_DH', so('Diem_DH') + 'Điểm thực tập dạy học')}
+      ${oDiem('Diem_CN', so('Diem_CN') + 'Điểm thực tập công tác chủ nhiệm')}
+      ${oDiem('Diem_TTSP', so('Diem_TTSP') + 'Điểm TTSP tổng hợp')}
+      ${oDiem('TD_Diem', so('TD_Diem') + 'Điểm tiết dạy được đánh giá')}
+      <button type="button" id="nut-diem" class="nut nut-chinh">Lưu điểm</button>
+    </div></div></section>`;
+}
+
+function ganKhoiDiem() {
+  const r = $('#khoi-diem');
+  $$('input[data-chua-diem]', r).forEach(cb => cb.addEventListener('change', () => {
+    const o = $('input[name="' + cb.dataset.chuaDiem + '"]', r);
+    o.disabled = cb.checked; if (cb.checked) o.value = '';
+  }));
+  $('#nut-diem').onclick = async ev => {
+    xoaLoi(r);
+    const du = {};
+    ['Diem_DH', 'Diem_CN', 'Diem_TTSP', 'TD_Diem'].forEach(k => { du[k] = gt(r, k); });
+    const xong = bocNut(ev.currentTarget, 'Đang lưu…');
+    try {
+      await api('updateScores', du);
+      bao('Đã lưu điểm. Mã xác nhận đã đổi, em tải lại PDF nếu cần.', 'tot');
+      await veTongKet();
+    } catch (e) {
+      xong();
+      if (e.fields) hienLoi(r, e.fields);
+      bao(e.message, 'loi');
+    }
+  };
+}
+
+/* ===================== Tài khoản ===================== */
+function veTaiKhoan() {
+  $('#noi-dung').innerHTML = `
+    <h1 class="text-xl font-bold">Tài khoản</h1>
+    <section class="the p-5 mt-4">
+      <dl class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-[15px]">
+        <dt class="text-phu">Họ tên</dt><dd>${esc(S.hoTen)}</dd>
+        <dt class="text-phu">Mã sinh viên</dt><dd>${esc(S.mssv)}</dd>
+        ${S.me ? `<dt class="text-phu">Trường thực tập</dt><dd>${esc(S.me.sinhVien.TruongTT)}</dd>` : ''}
+      </dl>
+    </section>
+    <form id="f-mk" class="the p-5 mt-4 space-y-4 max-w-md" novalidate>
+      <h2 class="font-semibold">Đổi mật khẩu</h2>
+      <div><label class="block text-sm font-medium mb-1.5" for="mk-cu">Mật khẩu hiện tại</label><input id="mk-cu" type="password" autocomplete="current-password"></div>
+      <div><label class="block text-sm font-medium mb-1.5" for="mk-moi">Mật khẩu mới (ít nhất 6 ký tự)</label><input id="mk-moi" type="password" autocomplete="new-password"></div>
+      <div><label class="block text-sm font-medium mb-1.5" for="mk-lai">Nhập lại mật khẩu mới</label><input id="mk-lai" type="password" autocomplete="new-password"></div>
+      <p id="mk-loi" class="loi hidden" role="alert"></p>
+      <button class="nut nut-chinh" type="submit">Đổi mật khẩu</button>
+    </form>
+    <button id="nut-thoat" class="nut nut-phu mt-6"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</button>`;
+  $('#nut-thoat').onclick = dangXuat;
+  $('#f-mk').onsubmit = async ev => {
+    ev.preventDefault();
+    const loi = $('#mk-loi');
+    loi.classList.add('hidden');
+    const cu = $('#mk-cu').value, moi = $('#mk-moi').value, lai = $('#mk-lai').value;
+    if (moi !== lai) { loi.textContent = 'Hai lần nhập mật khẩu mới chưa khớp.'; loi.classList.remove('hidden'); return; }
+    const xong = bocNut(ev.submitter || $('#f-mk button'), 'Đang đổi…');
+    try {
+      const kq = await api('changePassword', { matKhauCu: cu, matKhauMoi: moi });
+      S.token = kq.token;
+      luuPhien();
+      $('#f-mk').reset();
+      S.me = null;
+      bao('Đã đổi mật khẩu.', 'tot');
+    } catch (e) { loi.textContent = e.message; loi.classList.remove('hidden'); }
+    finally { xong(); }
+  };
+}
+
+/* ===================== Khởi động ===================== */
+async function khoiDong() {
+  veKhung();
+  await dieuHuong();
+}
+
+window.addEventListener('hashchange', () => {
+  // Rời bước tổng kết thì lưu nháp
+  if (S.final && $('#than-buoc') && cheDoTK() === 'soan') { thuThapBuoc(); luuNhap(); }
+  dieuHuong();
+});
+
+(function () {
+  const luuLau = kho.get('ttsp_sv');
+  const luu = luuLau || phien.get('ttsp_sv');
+  if (luu) {
+    try {
+      const o = JSON.parse(luu);
+      S.token = o.token; S.hoTen = o.hoTen; S.mssv = o.mssv; S.ghiNho = !!luuLau;
+    } catch (e) { kho.del('ttsp_sv'); phien.del('ttsp_sv'); }
+  }
+  if (S.token) khoiDong(); else veDangNhap();
+})();
+</script>
+</body>
+</html>
